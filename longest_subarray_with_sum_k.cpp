@@ -1,37 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    int arr[] = {1, 1, 1, 2, 2, 3, 4, 5};
-    int size = sizeof(arr) / sizeof(arr[0]);
+int longest_sub(vector<int>& arr , int k){
+    int left = 0 , right = 0, max_length = 0 , sum = 0;
+    int size = arr.size();
+    while(right < size){
+        //expand
+        sum+=arr[right];
 
-    int hash[100] = {0};  // Hash array to store the frequency of numbers
-
-    // Store the frequency of each number in hash
-    for(int i = 0; i < size; i++){
-        hash[arr[i]] += 1;
-    }
-
-    int k;
-    cout << "Enter k value: ";
-    cin >> k;
-
-    int sum = 0, maxLength = 0;
-
-    // Iterate through hash array to find the longest subset
-    for(int i = 0; i < 100; i++){
-        while(hash[i] > 0 && sum + i <= k) {
-            sum += i;      // Add the current number to sum
-            hash[i]--;     // Reduce the frequency of the number
-            maxLength++;   // Increase the count of elements in subset
+        while(sum>k){
+            //shrink
+            sum-=arr[left];
+            left++;
         }
-        if(sum == k) break;  // Stop if sum becomes equal to k
+
+        if(sum == k){
+            max_length = max(max_length,right-left+1);
+        }
+
+        right++;
     }
 
-    if(sum == k) 
-        cout << "Longest subset length with sum " << k << " is: " << maxLength << endl;
-    else
-        cout << "No subset found with sum " << k << endl;
+    return max_length;
+}
+int main(){
+    vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int k = 15;
+    cout << longest_sub(arr,k);
 
-    return 0;
+    return 0 ;
 }
