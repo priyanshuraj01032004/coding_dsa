@@ -24,8 +24,8 @@ int longest_sub(vector<int>& arr , int k){
     return max_length;
 }
 int main(){
-    vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8 , 9, 10};
-    int k = 15;
+    vector<int> arr = {1, 2, 3, 4, 5, -6, -9 , 7, 8, 10};
+    int k = 0;
     cout << longest_sub(arr,k);
 
     return 0 ;
